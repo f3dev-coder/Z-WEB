@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML Code Editor</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header button {
+      margin-left: 10px;
+    }
+
+    .code-editor {
+      display: flex;
+      flex-grow: 1;
+      position: relative;
+    }
+
+    .code-input-container {
+      flex-basis: 50%;
+      display: flex;
+      flex-direction: column;
+      background-color: #f1f1f1;
+      border-right: 1px solid #ddd;
+    }
+
+    .tab-bar {
+      background-color: #ddd;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+    }
+      .tab-bar button {
+        margin-right: 10px;
+        padding: 5px 10px;
+        background-color: #f1f1f1;
+        border: none;
+        cursor: pointer;
+        position: relative;
+      }
+  
+
+  
+
+    .tab-bar button:before {
+      content: '×';
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #999;
+      color: #fff;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      font-size: 12px;
+      line-height: 16px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .tab-bar button:hover:before {
+      opacity: 1;
+    }
+
+    .code-input {
+      flex-grow: 1;
+      padding: 20px;
+      font-size: 16px;
+      border: none;
+      resize: none;
+      outline: none;
+      background-color: #f1f1f1;
+      padding-left: 40px;
+      position: relative;
+    }
+
+    .code-input:before {
+      content: counter(line-number);
+      counter-increment: line-number;
+      position: absolute;
+      left: 10px;
+      color: #999;
+      width: 30px;
+      display: inline-block;
+      text-align: right;
+    }
+
+    .preview {
+      flex-grow: 1;
+      background-color: #fff;
+      padding: 20px;
+    }
+
+    .preview iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>HTML Code Editor</h1>
+    <div>
+      <button id="add-tab">Add Tab</button>
+      <button id="save-code">Save Code</button>
+      <button id="download-code">Download Code</button>
+      <button class="run-button">Run</button>
+    </div>
+  </div>
+  <div class="code-editor">
+    <div class="code-input-container">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab-index="0">Tab 1</button>
+      </div>
+      <textarea class="code-input" placeholder="Enter your HTML code here..." data-tab-index="0"></textarea>
+    </div>
+    <div class="preview">
+      <iframe class="code-output" data-tab-index="0"></iframe>
+    </div>
+  </div>
+
+  <script>
+    let tabIndex = 0;
+    const tabs = [{ name: 'Tab 1', code: '' }];
+
+    const tabBar = document.querySelector('.tab-bar');
+    const codeInput = document.querySelector('.code-input');
+    const codeOutput = document.querySelector('.code-output');
+    const addTabBtn = document.getElementById('add-tab');
+    const saveCodeBtn = document.getElementById('save-code');
+    const downloadCodeBtn = document.getElementById('download-code');
+
+    function createTab(name, code) {
+      const tabBtn = document.createElement('button');
+      tabBtn.classList.add('tab-btn');
+      tabBtn.dataset.tabIndex = tabs.length;
+      tabBtn.textContent = name;
+      tabBtn.addEventListener('click', switchTab);
+      tabBtn.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        deleteTab(parseInt(tabBtn.dataset.tabIndex));
+      });
+
+      const tabIndex = tabs.length;
+      tabs.push({ name, code });
+
+      tabBar.appendChild(tabBtn);
+      codeInput.dataset.tabIndex = tabIndex;
+      codeInput.value = code;
+      codeOutput.dataset.tabIndex = tabIndex;
+      updateCodeOutput();
+      switchTab({ target: tabBtn });
+    }
+
+    function switchTab(event) {
+      const tabBtn = event.target;
+      const newTabIndex = parseInt(tabBtn.dataset.tabIndex);
+
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      tabBtn.classList.add('active');
+
+      codeInput.dataset.tabIndex = newTabIndex;
+      codeInput.value = tabs[newTabIndex].code;
+      codeOutput.dataset.tabIndex = newTabIndex;
+      updateCodeOutput();
+    }
+
+    function deleteTab(index) {
+      if (tabs.length === 1) return;
+
+      tabs.splice(index, 1);
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.dataset.tabIndex = i;
+      });
+
+      const currentTabIndex = parseInt(codeInput.dataset.tabIndex);
+      if (currentTabIndex === index) {
+        switchTab({ target: tabBar.children[0] });
+      } else if (currentTabIndex > index) {
+        codeInput.dataset.tabIndex = currentTabIndex - 1;
+        codeOutput.dataset.tabIndex = currentTabIndex - 1;
+      }
+
+      tabBar.children[index].remove();
+      updateCodeOutput();
+    }
+
+    function updateCodeOutput() {
+      const currentTabIndex = parseInt(codeInput.dataset.tabIndex);
+      const html = codeInput.value;
+      const doc = codeOutput.contentDocument;
+      doc.open();
+      doc.write(html);
+      doc.close();
+      tabs[currentTabIndex].code = html;
+    }
+
+    function saveCode() {
+      localStorage.setItem('tabs', JSON.stringify(tabs));
+    }
+
+    function downloadCode() {
+      const currentTabIndex = parseInt(codeInput.dataset.tabIndex);
+      const html = tabs[currentTabIndex].code;
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `tab-${currentTabIndex + 1}.html`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function loadSavedCode() {
+      const savedTabs = JSON.parse(localStorage.getItem('tabs'));
+      if (savedTabs) {
+        savedTabs.forEach(tab => createTab(tab.name, tab.code));
+      } else {
+        createTab('Tab 1', '');
+      }
+    }
+
+    addTabBtn.addEventListener('click', () => createTab(`Tab ${tabs.length + 1}`, ''));
+    saveCodeBtn.addEventListener('click', saveCode);
+    downloadCodeBtn.addEventListener('click', downloadCode);
+
+    loadSavedCode();
+    document.querySelector('.run-button').addEventListener('click', () => {
+      const currentTab = document.querySelector('.tab-btn.active');
+      const tabIndex = parseInt(currentTab.dataset.tabIndex);
+      const codeInput = document.querySelector(`.code-input[data-tab-index="${tabIndex}"]`);
+      const codeOutput = document.querySelector(`.code-output[data-tab-index="${tabIndex}"]`);
+
+      codeOutput.contentDocument.open();
+      codeOutput.contentDocument.write(codeInput.value);
+      codeOutput.contentDocument.close();
+    });
+  </script>
+</body>
+</html>

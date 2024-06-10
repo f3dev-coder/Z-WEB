@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" type="image/x-icon" href="pfp.png">
+
+    </div>
+<title>Dashboard Space Server</title>
+  <button style="background-color: green; color: white;" onclick="window.open('https://discord.gg/q87KPzT9y5', '_blank')"> dashboard</button>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+
+    .dashboard-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .file-input-container {
+      margin-bottom: 20px;
+    }
+
+    .file-input-container label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .file-input-container input[type="file"] {
+      display: none;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .submit-button, .home-button {
+      background-color: #45a049;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .submit-button:hover, .home-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>Dashboard</h1>
+    <div class="input-group">
+      <h1>Press the dashboard button</h1>
+    </div>
+    <div class="button-container">
+      <button class="home-button" onclick="window.location.href='home.html'">Go to Home</button>
+      <button class="submit-button" onclick="sendWebhook()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    function sendWebhook() {
+      const name = document.getElementById('name').value;
+      const discordInvite = document.getElementById('discord-invite').value;
+      const imageInput = document.getElementById('image-upload');
+      const file = imageInput.files[0];
+
+      // Create a FormData object to send the data
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('discord_invite', discordInvite);
+      formData.append('image', file);
+
+      // Replace 'YOUR_WEBHOOK_URL' with your actual Discord webhook URL
+      const webhookUrl = 'https://discord.com/api/webhooks/1249040833286639697/uwk5uBPOH6Y25FtETjkoc_4jH_bGiVcHxD64TaXplZsT6tknEp8IS9XuTQurEUDGilk6';
+      fetch(webhookUrl, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        console.log('Webhook sent successfully:', response);
+      })
+      .catch(error => {
+        console.error('Error sending webhook:', error);
+      });
+    }
+  </script>
+</body>
+</html>

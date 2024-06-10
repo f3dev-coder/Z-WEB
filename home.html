@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Server Space</title>
+  <meta content="Server Space" property="og:title" />
+  <meta content="Find servers or put servers in our 40 servers add yours own servers" property="og:description" />
+  <meta content="https://4b5cbed1-07f5-45bf-b6ab-496f91dcc7b3-00-20tjzlzorjgn8.janeway.replit.dev/home.html" property="og:url" />
+  <meta content="https://cdn.discordapp.com/attachments/1025707754511405097/1249339826549821552/Screenshot_2024-06-09_3.30.02_PM.png?ex=6666f1e2&is=6665a062&hm=fd9507bed0fa300ebbb5efed0ee3098ec5584139811fceb81a55203ab34c70e2&" property="og:image" />
+  <meta content="#43B581" data-react-helmet="true" name="theme-color" />
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/x-icon" href="pfp.png">
+  <style>
+    .go-to-dashboard-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .go-to-dashboard-btn:hover {
+      background-color: #45a049;
+    }
+    .green-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+      
+  </style>
+  </head>
+  <body>
+  <!-- Your page content goes here -->
+
+  <button class="go-to-dashboard-btn" onclick="window.location.href='dashboard.html'">Go to Dashboard</button>
+    <button style="background-color: green; color: white; border-radius: 20px; padding: 10px 20px;" onclick="window.location.href='page.html', '_blank'">Next</button>
+    <button style="background-color: green; color: white; border-radius: 20px; padding: 10px 20px;" onclick="window.location.href='Guest.html', '_blank'">Guest</button>
+
+  <style>
+    body {
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .discord-server-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-gap: 20px;
+   
+    }
+    .Guest {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    }
+    
+    .discord-server {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      border: 2px solid transparent;
+    }
+
+    .discord-server img {
+      width: 80%;
+      height: 80%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .discord-server:hover {
+      transform: scale(1.2);
+      border-color: #7289da;
+    }
+  </style>
+</head>
+<body>
+  <div class="discord-server-container">
+    <div class="discord-server" data-url="https://discord.gg/5r4Htz2jTJ" data-webhook="https://discord.com/api/webhooks/1249346964043075624/OulJIBNmKaFeiDjCjLZCcW7Gi1e5Q9IxaRjdWdTQnob4ZRPnx0FOEdR2oLKhWpnrbzrU">
+      <img src="https://cdn.discordapp.com/icons/1042440726962778132/7d22646d92b2a42be00d119e99b61c1d.webp?size=1024" alt="Server 1">
+    </div>
+    <div class="discord-server" data-url="https://discord.gg/8rwu6kg8cP" data-webhook="https://discord.com/api/webhooks/987654321/ponmlkjihgfdsabc">
+      <img src="https://cdn.discordapp.com/icons/1247866247610110052/3ee90d86b33f0711f8e70b965530fb9f.png?size=4096" alt="Server 2">
+    </div>
+    <div class="discord-server" data-url="https://discord.gg/lrfrca" data-webhook="https://discord.com/api/webhooks/abcd1234/efgh5678ijkl">
+      <img src="https://cdn.discordapp.com/icons/1203309369941299240/dc3d8cc1a7ee24de49f83687b940d213.png?size=4096" alt="Server 3">
+    </div>
+    <div class="discord-server" data-url="https://discord.gg/example4" data-webhook="https://discord.com/api/webhooks/wxyz9012/vuts3456rqpo">
+      <img src="https://via.placeholder.com/80" alt="Server 4">
+    </div>
+    <div class="discord-server" data-url="https://discord.gg/example5" data-webhook="https://discord.com/api/webhooks/abcd5678/efgh1234ijkl">
+      <img src="https://via.placeholder.com/80" alt="Server 5">
+    </div>
+    <div class="discord-server" data-url="https://discord.gg/example6" data-webhook="https://discord.com/api/webhooks/wxyz5678/vuts1234rqpo">
+      <img src="https://via.placeholder.com/80" alt="Server 6">
+    </div>
+    <div class="discord-server" data-url="https://discord.gg/example7" data-webhook="https://discord.com/api/webhooks/abcd9012/efgh5678ijkl">
+      <img src="https://via.placeholder.com/80" alt="Server 7">
+    </div>
+    <div class="discord-server" data-url="https://discord.gg/example8" data-webhook="https://discord.com/api/webhooks/wxyz9012/vuts5678rqpo">
+      <img src="https://via.placeholder.com/80" alt="Server 8">
+    </div>
+    <div class="discord-server" data-url="https://discord.gg/example9" data-webhook="https://discord.com/api/webhooks/abcd5678/efgh9012ijkl">
+      <img src="https://via.placeholder.com/80" alt="Server 9">
+    </div>
+    <div class="discord-server-container">
+      <div class="discord-server" data-url="https://discord.gg/example10" data-webhook="https://discord.com/api/webhooks/123456789/abcdefghijklmnop">
+        <img src="https://via.placeholder.com/80" alt="Server 10">
+      </div>
+      </div>
+      <div class="discord-server" data-url="https://discord.gg/example12" data-webhook="https://discord.com/api/webhooks/wxyz5678/vuts9012rqpo">
+        <img src="https://via.placeholder.com/80" alt="Server 12">
+      </div>
+    <div class="discord-server" data-url="https://discord.gg/example12" data-webhook="https://discord.com/api/webhooks/wxyz5678/vuts9012rqpo">
+      <img src="https://via.placeholder.com/80" alt="Server 13">
+    </div>
+        </div>
+  </div>
+
+  <script>
+    const discordServers = document.querySelectorAll('.discord-server');
+
+    discordServers.forEach(server => {
+      server.addEventListener('click', () => {
+        // Open the selected server's Discord invite link in a new tab
+        window.open(server.dataset.url, '_blank');
+
+        // Send a webhook message
+        sendWebhookMessage(server.dataset.webhook);
+      });
+    });
+
+    async function sendWebhookMessage(webhookUrl) {
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            content: 'Someone has clicked your Discord server!'
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error ${response.status}`);
+        }
+      } catch (error) {
+        console.error('Error sending webhook message:', error);
+      }
+    }
+  </script>
+</body>
+</html>
